@@ -83,6 +83,8 @@ class Compiler
         $phar->stopBuffering();
 
         unset($phar);
+
+        chmod($pharFile, 0755);
     }
 
     private function addFile($phar, $file, $strip = true)
