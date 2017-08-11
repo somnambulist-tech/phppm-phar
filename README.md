@@ -12,11 +12,13 @@ This library includes:
  * drupal-adapter
  * psr7-adapter
 
+Symfony has been pinned to the current stable 3.3.X branches.
+
 In addition the following additional bootstrappers are included:
 
- * `SymfonyFlex`
+ * `SymfonyFlexApp`
  
-   Generally bootstrapper for SF Flex based projects that can handle the change in Kernel naming
+   General bootstrapper for SF Flex based projects that can handle the change in Kernel naming
    and the new public folder. **Note:** Kernel discovery requires the usage of PSR-4 naming conventions
    in your project and that the standard `./src` folder is being used. If not found, `AppKernel` is
    used as a fallback.
@@ -26,12 +28,20 @@ In addition the following additional bootstrappers are included:
    A special bootstrapper that completely ignores doing anything with sessions because it's an API
    and a session is not needed so the StrongerNativeSessionStorage is not mapped.
 
+ * `ProfilingFlexApp`
+ 
+   Adds support for Tideways Profiling in the bootstrapper for Applications.
+   
+ * `ProfilingFlexApi`
+ 
+   Adds support for Tideways Profiling in the bootstrapper for API kernels.
+
 These extend from the base Symfony bootstrapper.
 
 In addition: the env var APP_ENV is checked, and if `Symfony\Component\Dotenv\Dotenv` is available,
 the default .env file will be loaded before the Kernel is booted.
 
-To use either of these Bootstrap classes, replace your bootstrap in the ppm.json with either class
+To use any of these Bootstrap classes, replace your bootstrap in the ppm.json with the class
 name. They use the `PHPPM\Bootstrappers` namespace for autoloading.
 
 ### Compile Phar

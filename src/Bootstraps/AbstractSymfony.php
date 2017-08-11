@@ -3,7 +3,6 @@
 namespace PHPPM\Bootstraps;
 
 use PHPPM\Bootstraps\Symfony as BaseSymfony;
-use PHPPM\Symfony\StrongerNativeSessionStorage;
 use PHPPM\Utils;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -13,8 +12,9 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * Custom bootstrapper to handle the changes introduced in Symfony Flex.
  * Attempts to locate the kernel in the default src/ folder.
  */
-class SymfonyFlex extends BaseSymfony
+class AbstractSymfony extends BaseSymfony
 {
+
     /**
      * @return string
      */
@@ -24,11 +24,9 @@ class SymfonyFlex extends BaseSymfony
     }
 
     /**
-     * Create a Symfony application
-     *
      * @return KernelInterface
      */
-    public function getApplication()
+    protected function createKernelInstance()
     {
         // include applications autoload
         require './vendor/autoload.php';
@@ -38,25 +36,28 @@ class SymfonyFlex extends BaseSymfony
 
         // locate and attempt to boot the kernel in the current project folder
         $kernel = $this->locateApplicationKernel();
-        $app    = new $kernel($this->appenv, $this->debug);
 
+        return new $kernel($this->appenv, $this->debug);
+    }
+
+    /**
+     * @param KernelInterface $app
+     */
+    protected function initializeKernel($app)
+    {
         // we need to change some services, before the boot, because they would otherwise
         // be instantiated and passed to other classes which makes it impossible to replace them.
         Utils::bindAndCall(function () use ($app) {
             $app->initializeBundles();
             $app->initializeContainer();
         }, $app);
+    }
 
-        // replace session handler with one more suited to php-pm (from Symfony bootstrapper)
-        if ($app->getContainer()->hasParameter('session.storage.options')) {
-            $nativeStorage = new StrongerNativeSessionStorage(
-                $app->getContainer()->getParameter('session.storage.options'),
-                $app->getContainer()->has('session.handler') ? $app->getContainer()->get('session.handler') : null,
-                $app->getContainer()->get('session.storage.metadata_bag')
-            );
-            $app->getContainer()->set('session.storage.native', $nativeStorage);
-        }
-
+    /**
+     * @param KernelInterface $app
+     */
+    protected function bootKernel($app)
+    {
         Utils::bindAndCall(function () use ($app) {
             foreach ($app->getBundles() as $bundle) {
                 $bundle->setContainer($app->container);
@@ -65,8 +66,6 @@ class SymfonyFlex extends BaseSymfony
 
             $app->booted = true;
         }, $app);
-
-        return $app;
     }
 
     /**
