@@ -12,10 +12,12 @@
         "php-pm/drupal-adapter": "dev-master",
         "php-pm/psr7-adapter": "dev-master",
         "react/http": "dev-master#cd15204bd15d106d7832c680e4fb0ca0ce2f5e30",
-        "symfony/debug": "~3.3.6",
-        "symfony/process": "~3.3.6",
-        "symfony/console": "~3.3.6",
-        "symfony/finder": "~3.3.6"
+        "symfony/debug": "3.3.8",
+        "symfony/http-foundation": "3.3.8",
+        "symfony/http-kernel": "3.3.8",
+        "symfony/process": "3.3.8",
+        "symfony/console": "3.3.8",
+        "symfony/finder": "3.3.8"
     },
     "autoload": {
         "psr-4": {
