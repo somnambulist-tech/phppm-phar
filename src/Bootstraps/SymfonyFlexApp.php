@@ -3,7 +3,6 @@
 namespace PHPPM\Bootstraps;
 
 use PHPPM\Symfony\StrongerNativeSessionStorage;
-use PHPPM\Utils;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -30,8 +29,7 @@ class SymfonyFlexApp extends AbstractSymfony
         if ($app->getContainer()->hasParameter('session.storage.options')) {
             $nativeStorage = new StrongerNativeSessionStorage(
                 $app->getContainer()->getParameter('session.storage.options'),
-                $app->getContainer()->has('session.handler') ? $app->getContainer()->get('session.handler') : null,
-                $app->getContainer()->get('session.storage.metadata_bag')
+                $app->getContainer()->has('session.handler') ? $app->getContainer()->get('session.handler') : null
             );
             $app->getContainer()->set('session.storage.native', $nativeStorage);
         }

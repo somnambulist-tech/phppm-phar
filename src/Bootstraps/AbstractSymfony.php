@@ -16,14 +16,6 @@ class AbstractSymfony extends BaseSymfony
 {
 
     /**
-     * @return string
-     */
-    public function getStaticDirectory()
-    {
-        return 'public/';
-    }
-
-    /**
      * @return KernelInterface
      */
     protected function createKernelInstance()
@@ -88,17 +80,27 @@ class AbstractSymfony extends BaseSymfony
         $composer = json_decode(file_get_contents(realpath('./composer.json')), true);
 
         if (!isset($composer['autoload']['psr-4'])) {
-            return 'AppKernel';
+            return $this->guessDefaultKernelClass();
         }
 
         foreach ((array) $composer['autoload']['psr-4'] as $namespace => $path) {
-            foreach ((array) $path as $pathChoice) {
-                if (realpath('./src/') == realpath('./'.$pathChoice)) {
-                    return $namespace . 'Kernel';
+            if (strlen($namespace) > 0) {
+                foreach ((array)$path as $pathChoice) {
+                    if (realpath('./src/') == realpath('./' . $pathChoice)) {
+                        return $namespace . 'Kernel';
+                    }
                 }
             }
         }
 
-        return 'AppKernel';
+        return $this->guessDefaultKernelClass();
+    }
+
+    /**
+     * @return string
+     */
+    protected function guessDefaultKernelClass()
+    {
+        return class_exists('AppKernel') ? 'AppKernel' : 'App\Kernel';
     }
 }

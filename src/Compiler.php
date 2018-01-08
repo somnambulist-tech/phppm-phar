@@ -46,7 +46,6 @@ class Compiler
             ->notName('Compiler.php')
             ->in(__DIR__ . '/../src/')
             ->in(__DIR__ . '/../vendor/symfony/')
-            ->in(__DIR__ . '/../vendor/zendframework/')
 
             ->in(__DIR__ . '/../vendor/evenement/')
             ->in(__DIR__ . '/../vendor/http-interop/')

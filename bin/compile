@@ -19,6 +19,8 @@ ini_set('display_errors', 1);
 try {
     $compiler = new Compiler();
     $compiler->compile();
+
+    echo "Created ppm.phar successfully\n";
 } catch (\Exception $e) {
     echo 'Failed to compile phar: ['.get_class($e).'] '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().PHP_EOL;
     exit(1);
