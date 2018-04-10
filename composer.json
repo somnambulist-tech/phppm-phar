@@ -2,7 +2,6 @@
     "name": "somnambulist/php-pm-phar",
     "type": "library",
     "description": "Phar archive builder for php-pm",
-    "minimum-stability": "dev",
     "license": "MIT",
     "require": {
         "php": ">=7",
