@@ -3,16 +3,13 @@
 [![PPM Compatible](https://raw.githubusercontent.com/php-pm/ppm-badge/master/ppm-badge.png)](https://github.com/php-pm/php-pm)
 
 Adds a compiler derived from Composers Composer\Compiler class that creates a ppm.phar file for use
-in other projects, isolating the current dev-master nature of php-pm from your project.
+in other projects, isolating the php-pm dependencies from your project making it more portable.
 
 This library includes:
 
  * httpkernel-adapter
- * zend-adapter
- * drupal-adapter
- * psr7-adapter
-
-Symfony has been pinned to the current stable 3.3.X branches.
+ 
+Note: all other adaptors were removed as they are not being frequently updated.
 
 In addition the following additional bootstrappers are included:
 
@@ -20,21 +17,13 @@ In addition the following additional bootstrappers are included:
  
    General bootstrapper for SF Flex based projects that can handle the change in Kernel naming
    and the new public folder. **Note:** Kernel discovery requires the usage of PSR-4 naming conventions
-   in your project and that the standard `./src` folder is being used. If not found, `AppKernel` is
-   used as a fallback.
+   in your project and that the standard `./src` folder is being used. If not found, `AppKernel`
+   and `App\Kernel` will be used as fallbacks.
  
  * `SymfonyFlexApi`
  
-   A special bootstrapper that completely ignores doing anything with sessions because it's an API
-   and a session is not needed so the StrongerNativeSessionStorage is not mapped.
-
- * `ProfilingFlexApp`
- 
-   Adds support for Tideways Profiling in the bootstrapper for Applications.
-   
- * `ProfilingFlexApi`
- 
-   Adds support for Tideways Profiling in the bootstrapper for API kernels.
+   A special bootstrapper that completely ignores doing anything with sessions.
+   As of 2018-08-06 this is functionally the same as the App adapter.
 
 These extend from the base Symfony bootstrapper.
 
