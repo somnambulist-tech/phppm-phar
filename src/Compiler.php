@@ -49,11 +49,9 @@ class Compiler
 
             ->in(__DIR__ . '/../vendor/evenement/')
             ->in(__DIR__ . '/../vendor/http-interop/')
-            ->in(__DIR__ . '/../vendor/mkraemer/')
             ->in(__DIR__ . '/../vendor/monolog/')
             ->in(__DIR__ . '/../vendor/paragonie/')
             ->in(__DIR__ . '/../vendor/php-pm/')
-            ->in(__DIR__ . '/../vendor/psr/')
             ->in(__DIR__ . '/../vendor/react/')
             ->in(__DIR__ . '/../vendor/ringcentral/')
             ->sort($finderSort)
