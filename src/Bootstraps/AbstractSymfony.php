@@ -21,8 +21,7 @@ class AbstractSymfony extends BaseSymfony
      */
     protected function createKernelInstance()
     {
-        // include applications autoload
-        require './vendor/autoload.php';
+        require $this->getVendorDir().'/autoload.php';
 
         // attempt to preload the environment vars
         $this->loadEnvironmentVariables();
