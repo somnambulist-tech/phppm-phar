@@ -74,7 +74,13 @@ class AbstractSymfony extends BaseSymfony
     protected function loadEnvironmentVariables()
     {
         if (!getenv('APP_ENV') && class_exists('Symfony\Component\Dotenv\Dotenv')) {
-            (new \Symfony\Component\Dotenv\Dotenv())->load(realpath('./.env'));
+            $env = new \Symfony\Component\Dotenv\Dotenv();
+
+            if (method_exists($env, 'loadEnv')) {
+                $env->loadEnv(realpath('./.env'));
+            } else {
+                $env->load(realpath('./.env'));
+            }
         }
     }
 
