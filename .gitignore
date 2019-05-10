@@ -2,6 +2,7 @@
 ### Composer template
 composer.phar
 ppm.phar
+ppm.json
 /vendor/
 .idea
 build
@@ -9,6 +10,7 @@ build
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 composer.lock
 bin/ppm
+*.sh
 
 ### macOS template
 # General
