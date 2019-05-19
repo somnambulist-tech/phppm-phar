@@ -5,22 +5,29 @@ $cwd = getcwd();
 chdir(__DIR__.'/../');
 
 shell_exec('composer config autoloader-suffix PhpPmPhar' . time());
-shell_exec('composer install -q --no-dev');
+shell_exec('composer install -q --no-dev -o');
 shell_exec('composer config autoloader-suffix --unset');
 chdir($cwd);
 
 require __DIR__.'/../vendor/autoload.php';
 
 use PHPPM\Compiler;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 error_reporting(-1);
 ini_set('display_errors', 1);
 
 try {
-    $compiler = new Compiler();
-    $compiler->compile();
+    $file = dirname(__DIR__) . '/ppm.phar';
 
-    echo "Created ppm.phar successfully\n";
+    $output = new ConsoleOutput();
+    $output->writeln(sprintf('Compiling PPM to: <info>%s</info>', $file));
+
+    $compiler = new Compiler();
+    $compiler->compile($file);
+
+    $output->writeln(sprintf('Created: <comment>%s</comment> <info>successfully</info>', $file));
+    $output->writeln(sprintf('SHA-384: <comment>%s</comment>', hash_file('sha384', $file)));
 } catch (\Exception $e) {
     echo 'Failed to compile phar: ['.get_class($e).'] '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().PHP_EOL;
     exit(1);
