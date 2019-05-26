@@ -162,7 +162,7 @@ if (extension_loaded('apc') && ini_get('apc.enable_cli') && ini_get('apc.cache_b
 Phar::mapPhar('ppm.phar');
 require 'phar://ppm.phar/bin/ppm';
 
-__HALT_COMPILER(); ?>
+__HALT_COMPILER();
 EOF;
     }
 }
