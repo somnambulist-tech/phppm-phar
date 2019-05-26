@@ -5,7 +5,7 @@ $cwd = getcwd();
 chdir(__DIR__.'/../');
 
 shell_exec('composer config autoloader-suffix PhpPmPhar' . time());
-shell_exec('composer install -q --no-dev -o');
+shell_exec('composer install -q --no-dev');
 shell_exec('composer config autoloader-suffix --unset');
 chdir($cwd);
 
