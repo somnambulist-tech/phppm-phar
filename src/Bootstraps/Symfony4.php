@@ -125,7 +125,7 @@ class Symfony4 extends BaseSymfony
     protected function loadEnvironmentVariables()
     {
         if (!\getenv('APP_ENV') && \class_exists('Symfony\Component\Dotenv\Dotenv')) {
-            $env = new \Symfony\Component\Dotenv\Dotenv();
+            $env = new \Symfony\Component\Dotenv\Dotenv(true);
 
             if (\method_exists($env, 'loadEnv')) {
                 $env->loadEnv(\realpath('./.env'));
