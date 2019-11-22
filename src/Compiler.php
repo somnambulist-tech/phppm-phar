@@ -102,7 +102,7 @@ class Compiler
 
     private function addBin($phar)
     {
-        $content = file_get_contents(__DIR__ . '/../bin/ppm');
+        $content = file_get_contents(__DIR__ . '/../bin/run');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
         $phar->addFromString('bin/ppm', $content);
     }
