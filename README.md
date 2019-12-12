@@ -40,6 +40,10 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2019-11-22
+
+Release against Symfony 4.4 dependencies
+
 #### 2019-05-10
 
 Updated to PHP-PM 2.0.0 / HttpKernel 2.0.1
