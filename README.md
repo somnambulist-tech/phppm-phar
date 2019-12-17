@@ -1,5 +1,6 @@
 # Phar compiler for php-pm
 
+[![GitHub Actions release Build Status](https://github.com/dave-redfern/somnambulist-phppm-phar/workflows/release/badge.svg)](https://github.com/dave-redfern/somnambulist-phppm-phar/actions?query=workflow%3Arelease)
 [![PPM Compatible](https://raw.githubusercontent.com/php-pm/ppm-badge/master/ppm-badge.png)](https://github.com/php-pm/php-pm)
 
 Adds a compiler derived from Composers Composer\Compiler class that creates a ppm.phar file for use
