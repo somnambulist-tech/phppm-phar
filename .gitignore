@@ -43,3 +43,4 @@ Temporary Items
 # bin files
 bin/var-dump-server
 bin/ppm
+/ppm_checksums.txt

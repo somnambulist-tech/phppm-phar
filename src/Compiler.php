@@ -50,7 +50,6 @@ class Compiler
 
             ->in(__DIR__ . '/../vendor/evenement/')
             ->in(__DIR__ . '/../vendor/guzzlehttp/')
-            ->in(__DIR__ . '/../vendor/monolog/')
             ->in(__DIR__ . '/../vendor/php-pm/')
             ->in(__DIR__ . '/../vendor/psr/')
             ->in(__DIR__ . '/../vendor/ralouphie/')
