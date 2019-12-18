@@ -3,6 +3,7 @@
 namespace PHPPM;
 
 use Symfony\Component\Finder\Finder;
+use function shell_exec;
 
 /**
  * Compiler
@@ -105,6 +106,11 @@ class Compiler
         $content = file_get_contents(__DIR__ . '/../bin/run');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
         $phar->addFromString('bin/ppm', $content);
+    }
+
+    private function getMostRecentTagFromRepository()
+    {
+        return shell_exec('git describe --abbrev=0 --tags') ?? 'latest';
     }
 
     /**
