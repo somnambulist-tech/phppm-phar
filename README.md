@@ -41,13 +41,17 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2020-02-05
+
+Release against Symfony 5.0.4 dependencies (4.X)
+
 #### 2020-01-29
 
 Updated to PHP-PM 2.0.3
 
 #### 2019-11-22
 
-Release against Symfony 4.4 dependencies
+Release against Symfony 4.4 dependencies (3.x)
 
 #### 2019-05-10
 
