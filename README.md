@@ -43,6 +43,10 @@ If you have specific version requirements, clone this package and set the versio
 
 #### 2020-02-05
 
+Added SomnambulistSymfony adapter to replace Symfony4 (now deprecated).
+
+#### 2020-02-05
+
 Release against Symfony 5.0.4 dependencies (4.X)
 
 #### 2020-01-29
