@@ -2,6 +2,9 @@
 
 namespace PHPPM;
 
+use Phar;
+use RuntimeException;
+use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use function shell_exec;
 
@@ -20,7 +23,7 @@ class Compiler
      *
      * @param string $pharFile The full path to the file to create
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function compile($pharFile = 'ppm.phar')
     {
@@ -28,7 +31,7 @@ class Compiler
             unlink($pharFile);
         }
 
-        $phar = new \Phar($pharFile, 0, 'ppm.phar');
+        $phar = new Phar($pharFile, 0, 'ppm.phar');
         $phar->startBuffering();
 
         $finderSort = function ($a, $b) {
@@ -62,23 +65,24 @@ class Compiler
             $this->addFile($phar, $file);
         }
 
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/autoload.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_psr4.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_classmap.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_files.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_real.php'));
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/autoload_static.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/autoload.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_namespaces.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_psr4.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_classmap.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_files.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_real.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_static.php'));
         if (file_exists(__DIR__ . '/../vendor/composer/include_paths.php')) {
-            $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/include_paths.php'));
+            $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/include_paths.php'));
         }
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../vendor/composer/ClassLoader.php'));
+        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/ClassLoader.php'));
 
         $this->addBin($phar);
 
         // Stubs
         $phar->setStub($this->getStub());
 
+        $phar->compressFiles(Phar::GZ);
         $phar->stopBuffering();
 
         unset($phar);

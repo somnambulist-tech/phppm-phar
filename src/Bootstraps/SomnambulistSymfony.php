@@ -4,10 +4,21 @@ namespace PHPPM\Bootstraps;
 
 use PHPPM\Bootstraps\Symfony as BaseSymfony;
 use PHPPM\Utils;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Config\Resource\FileResource;
+use function class_exists;
+use function explode;
+use function file_get_contents;
+use function get_class;
+use function getenv;
+use function json_decode;
 use function PHPPM\register_file;
+use function realpath;
+use function strlen;
+use function strrchr;
+use function substr;
+use function unserialize;
 
 /**
  * SomnambulistSymfony
@@ -40,7 +51,7 @@ class SomnambulistSymfony extends BaseSymfony
      */
     protected function createKernelInstance()
     {
-        require $this->getVendorDir().'/autoload.php';
+        require realpath($this->getVendorDir() . '/autoload.php');
 
         // attempt to preload the environment vars
         $this->loadEnvironmentVariables();
@@ -82,8 +93,8 @@ class SomnambulistSymfony extends BaseSymfony
             Utils::bindAndCall(function () use ($app) {
                 $container = $app->container;
 
-                $containerClassName = \substr(\strrchr(\get_class($app->container), "\\"), 1);
-                $metaName = $containerClassName . '.php.meta';
+                $containerClassName = substr(strrchr(get_class($app->container), "\\"), 1);
+                $metaName           = $containerClassName . '.php.meta';
 
                 Utils::bindAndCall(function () use ($container) {
                     $container->publicContainerDir = $container->containerDir;
@@ -93,14 +104,14 @@ class SomnambulistSymfony extends BaseSymfony
                     return;
                 }
 
-                $metaContent = @\file_get_contents($app->container->publicContainerDir . '/../' . $metaName);
+                $metaContent = @file_get_contents($app->container->publicContainerDir . '/../' . $metaName);
 
                 // Cannot read the Metadata, returning
                 if ($metaContent === false) {
                     return;
                 }
 
-                $containerMetadata = \unserialize($metaContent);
+                $containerMetadata = unserialize($metaContent);
 
                 foreach ($containerMetadata as $entry) {
                     if ($entry instanceof FileResource) {
@@ -110,12 +121,12 @@ class SomnambulistSymfony extends BaseSymfony
             }, $app);
         }
 
-        if ($trustedProxies = \getenv('TRUSTED_PROXIES')) {
-            Request::setTrustedProxies(\explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
+        if ($trustedProxies = getenv('TRUSTED_PROXIES')) {
+            Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
         }
 
-        if ($trustedHosts = \getenv('TRUSTED_HOSTS')) {
-            Request::setTrustedHosts(\explode(',', $trustedHosts));
+        if ($trustedHosts = getenv('TRUSTED_HOSTS')) {
+            Request::setTrustedHosts(explode(',', $trustedHosts));
         }
     }
 
@@ -124,13 +135,13 @@ class SomnambulistSymfony extends BaseSymfony
      */
     protected function loadEnvironmentVariables()
     {
-        if (!\getenv('APP_ENV') && \class_exists('Symfony\Component\Dotenv\Dotenv')) {
+        if (!getenv('APP_ENV') && class_exists('Symfony\Component\Dotenv\Dotenv')) {
             $env = new \Symfony\Component\Dotenv\Dotenv(true);
 
             if (\method_exists($env, 'loadEnv')) {
-                $env->loadEnv(\realpath('./.env'));
+                $env->loadEnv(realpath('./.env'));
             } else {
-                $env->load(\realpath('./.env'));
+                $env->load(realpath('./.env'));
             }
         }
     }
@@ -142,16 +153,16 @@ class SomnambulistSymfony extends BaseSymfony
      */
     protected function locateApplicationKernel()
     {
-        $composer = \json_decode(\file_get_contents(\realpath('./composer.json')), true);
+        $composer = json_decode(file_get_contents(realpath('./composer.json')), true);
 
         if (!isset($composer['autoload']['psr-4'])) {
             return $this->guessDefaultKernelClass();
         }
 
-        foreach ((array) $composer['autoload']['psr-4'] as $namespace => $path) {
-            if (\strlen($namespace) > 0) {
+        foreach ((array)$composer['autoload']['psr-4'] as $namespace => $path) {
+            if (strlen($namespace) > 0) {
                 foreach ((array)$path as $pathChoice) {
-                    if (\realpath('./src/') == \realpath('./' . $pathChoice)) {
+                    if (realpath('./src/') == realpath('./' . $pathChoice)) {
                         return $namespace . 'Kernel';
                     }
                 }
@@ -166,6 +177,6 @@ class SomnambulistSymfony extends BaseSymfony
      */
     protected function guessDefaultKernelClass()
     {
-        return \class_exists('AppKernel') ? 'AppKernel' : 'App\Kernel';
+        return class_exists('AppKernel') ? 'AppKernel' : 'App\Kernel';
     }
 }
