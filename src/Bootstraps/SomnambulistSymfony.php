@@ -2,7 +2,6 @@
 
 namespace PHPPM\Bootstraps;
 
-use PHPPM\Bootstraps\Symfony as BaseSymfony;
 use PHPPM\Utils;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +27,7 @@ use function unserialize;
  *
  * Additionally: will utilise loadEnv if available for handling environment overrides.
  */
-class SomnambulistSymfony extends BaseSymfony
+class SomnambulistSymfony extends Symfony
 {
 
     /**
@@ -40,7 +39,6 @@ class SomnambulistSymfony extends BaseSymfony
     {
         $app = $this->createKernelInstance();
 
-        $this->initializeKernel($app);
         $this->bootKernel($app);
 
         return $app;
@@ -53,10 +51,8 @@ class SomnambulistSymfony extends BaseSymfony
     {
         require realpath($this->getVendorDir() . '/autoload.php');
 
-        // attempt to preload the environment vars
         $this->loadEnvironmentVariables();
 
-        // locate and attempt to boot the kernel in the current project folder
         $kernel = $this->locateApplicationKernel();
 
         return new $kernel($this->appenv, $this->debug);
@@ -65,35 +61,14 @@ class SomnambulistSymfony extends BaseSymfony
     /**
      * @param KernelInterface $app
      */
-    protected function initializeKernel($app)
-    {
-        // we need to change some services, before the boot, because they would otherwise
-        // be instantiated and passed to other classes which makes it impossible to replace them.
-        Utils::bindAndCall(function () use ($app) {
-            $app->initializeBundles();
-            $app->initializeContainer();
-        }, $app);
-    }
-
-    /**
-     * @param KernelInterface $app
-     */
     protected function bootKernel($app)
     {
-        Utils::bindAndCall(function () use ($app) {
-            foreach ($app->getBundles() as $bundle) {
-                $bundle->setContainer($app->container);
-                $bundle->boot();
-            }
-
-            $app->booted = true;
-        }, $app);
-
         if ($this->debug) {
             Utils::bindAndCall(function () use ($app) {
+                $app->boot();
                 $container = $app->container;
 
-                $containerClassName = substr(strrchr(get_class($app->container), "\\"), 1);
+                $containerClassName = substr(strrchr(get_class($container), "\\"), 1);
                 $metaName           = $containerClassName . '.php.meta';
 
                 Utils::bindAndCall(function () use ($container) {
@@ -130,10 +105,7 @@ class SomnambulistSymfony extends BaseSymfony
         }
     }
 
-    /**
-     * Attempt to load the env vars from .env, only if Dotenv exists
-     */
-    protected function loadEnvironmentVariables()
+    protected function loadEnvironmentVariables(): void
     {
         if (!getenv('APP_ENV') && class_exists('Symfony\Component\Dotenv\Dotenv')) {
             $env = new \Symfony\Component\Dotenv\Dotenv(true);
@@ -148,10 +120,8 @@ class SomnambulistSymfony extends BaseSymfony
 
     /**
      * Based on getNamespace from Illuminate\Foundation\Application
-     *
-     * @return string
      */
-    protected function locateApplicationKernel()
+    protected function locateApplicationKernel(): string
     {
         $composer = json_decode(file_get_contents(realpath('./composer.json')), true);
 
@@ -172,10 +142,7 @@ class SomnambulistSymfony extends BaseSymfony
         return $this->guessDefaultKernelClass();
     }
 
-    /**
-     * @return string
-     */
-    protected function guessDefaultKernelClass()
+    protected function guessDefaultKernelClass(): string
     {
         return class_exists('AppKernel') ? 'AppKernel' : 'App\Kernel';
     }
