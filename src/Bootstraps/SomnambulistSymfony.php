@@ -4,6 +4,7 @@ namespace PHPPM\Bootstraps;
 
 use PHPPM\Utils;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use function class_exists;
@@ -107,13 +108,12 @@ class SomnambulistSymfony extends Symfony
 
     protected function loadEnvironmentVariables(): void
     {
-        if (!getenv('APP_ENV') && class_exists('Symfony\Component\Dotenv\Dotenv')) {
-            $env = new \Symfony\Component\Dotenv\Dotenv(true);
-
-            if (\method_exists($env, 'loadEnv')) {
-                $env->loadEnv(realpath('./.env'));
+        if (!getenv('APP_ENV') && class_exists(Dotenv::class) && file_exists(realpath('.env'))) {
+            //Symfony >=5.1 compatibility
+            if (method_exists(Dotenv::class, 'usePutenv')) {
+                (new Dotenv())->usePutenv()->loadEnv(realpath('.env'));
             } else {
-                $env->load(realpath('./.env'));
+                (new Dotenv(true))->loadEnv(realpath('.env'));
             }
         }
     }

@@ -8,9 +8,10 @@
         "ext-json": "*",
         "php-pm/php-pm": "^2.0",
         "php-pm/httpkernel-adapter": ">=2.0.4 <3.0",
-        "symfony/console": "^5.0",
-        "symfony/config": "^5.0",
-        "symfony/finder": "^5.0"
+        "symfony/console": "5.0.*",
+        "symfony/config": "5.0.*",
+        "symfony/dotenv": "5.0.*",
+        "symfony/finder": "5.0.*"
     },
     "autoload": {
         "psr-4": {

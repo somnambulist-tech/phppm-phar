@@ -16,17 +16,14 @@ Note: all other adaptors were removed as they are not being frequently updated.
 
 In addition the following additional bootstrappers are included:
 
- * `Symfony4`
+ * `SomnambulistSymfony`
  
-   General bootstrapper for SF 4+ based projects that can handle the change in Kernel naming
+   General bootstrapper for SF 5+ based projects that can handle the change in Kernel naming
    and the new public folder. **Note:** Kernel discovery requires the usage of PSR-4 naming
    conventions in your project and that the standard `./src` folder is being used. If not
    found, `AppKernel` and `App\Kernel` will be used as fallbacks.
    
    Unlike the standard Symfony bootstrap, this one can handle .env.local and other overrides.
-
-In addition: the env var APP_ENV is checked, and if `Symfony\Component\Dotenv\Dotenv` is available,
-the default .env file will be loaded before the Kernel is booted.
 
 To use any of these Bootstrap classes, replace your bootstrap in the ppm.json with the class
 name. They use the `PHPPM\Bootstrappers` namespace for autoloading.
@@ -41,9 +38,15 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2020-06-17
+
+Dropped Dotenv <5 support
+Updated dependencies to pin to SF 5.0.*
+Updated to PHP-PM 2.0.4 / HttpKernel 2.0.5
+
 #### 2020-02-05
 
-Added SomnambulistSymfony adapter to replace Symfony4 (now deprecated).
+Added SomnambulistSymfony adapter to replace Symfony4 (now deprecated)
 
 #### 2020-02-05
 
