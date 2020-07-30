@@ -111,7 +111,7 @@ class SomnambulistSymfony extends Symfony
         if (!getenv('APP_ENV') && class_exists(Dotenv::class) && file_exists(realpath('.env'))) {
             //Symfony >=5.1 compatibility
             if (method_exists(Dotenv::class, 'usePutenv')) {
-                (new Dotenv())->usePutenv()->loadEnv(realpath('.env'));
+                (new Dotenv())->usePutenv()->bootEnv(realpath('.env'));
             } else {
                 (new Dotenv(true))->loadEnv(realpath('.env'));
             }

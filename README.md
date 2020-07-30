@@ -12,7 +12,7 @@ This library includes:
 
  * httpkernel-adapter
  
-Note: all other adaptors were removed as they are not being frequently updated.
+Note: all other adapters have been removed as they are not updated very often.
 
 In addition the following additional bootstrappers are included:
 
@@ -20,10 +20,8 @@ In addition the following additional bootstrappers are included:
  
    General bootstrapper for SF 5+ based projects that can handle the change in Kernel naming
    and the new public folder. **Note:** Kernel discovery requires the usage of PSR-4 naming
-   conventions in your project and that the standard `./src` folder is being used. If not
-   found, `AppKernel` and `App\Kernel` will be used as fallbacks.
-   
-   Unlike the standard Symfony bootstrap, this one can handle .env.local and other overrides.
+   conventions in your project and usage of the standard `./src` folder. If not found,
+   `AppKernel` and `App\Kernel` will attempt to be used.
 
 To use any of these Bootstrap classes, replace your bootstrap in the ppm.json with the class
 name. They use the `PHPPM\Bootstrappers` namespace for autoloading.
@@ -37,6 +35,12 @@ Copy the ppm.phar wherever you would like or symlink it: e.g.: `ln -s ./ppm.phar
 If you have specific version requirements, clone this package and set the versions you need.
 
 ### Major Changes
+
+#### 2020-07-30
+
+Updated Symfony dependencies to 5.1.* 
+Updated to PHP-PM 2.1
+Removed Symfony4 bootstrap adapter
 
 #### 2020-06-17
 
