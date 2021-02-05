@@ -14,7 +14,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.2.2
         with:
-          php-version: '7.3'
+          php-version: '7.4'
           extensions: mbstring, intl, posix, pcntl
           ini-values: memory_limit=256M, max_execution_time=0, phar.readonly=0
           tools: pecl, phpize, composer

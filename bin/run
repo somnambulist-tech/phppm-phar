@@ -38,7 +38,7 @@ use PHPPM\Commands\ReloadCommand;
 use PHPPM\Commands\StatusCommand;
 use PHPPM\Commands\ConfigCommand;
 
-$app = new Application('PHP-PM', '2.1.3');
+$app = new Application('PHP-PM', '2.2.1');
 $app->add(new StartCommand);
 $app->add(new StopCommand);
 $app->add(new ReloadCommand);

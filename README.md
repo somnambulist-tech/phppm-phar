@@ -36,6 +36,11 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2021-02-05
+
+Updated to PHP-PM 2.2.1
+Updated to Symfony 5.2.*
+
 #### 2020-07-30
 
 Updated Symfony dependencies to 5.1.* 
