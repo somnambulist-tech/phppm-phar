@@ -4,14 +4,14 @@
     "description": "Phar archive builder for php-pm",
     "license": "MIT",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ext-json": "*",
         "php-pm/php-pm": "^2.2",
         "php-pm/httpkernel-adapter": ">=2.0.6 <3.0",
-        "symfony/console": "5.2.*",
-        "symfony/config": "5.2.*",
-        "symfony/dotenv": "5.2.*",
-        "symfony/finder": "5.2.*"
+        "symfony/console": "5.3.*",
+        "symfony/config": "5.3.*",
+        "symfony/dotenv": "5.3.*",
+        "symfony/finder": "5.3.*"
     },
     "autoload": {
         "psr-4": {

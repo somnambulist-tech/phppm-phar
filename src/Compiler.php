@@ -76,11 +76,7 @@ class Compiler
         $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_psr4.php'));
         $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_real.php'));
         $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/autoload_static.php'));
-        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/installed.json'));
-        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/installed.php'));
-        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/platform_check.php'));
         $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/ClassLoader.php'));
-        $this->addFile($phar, new SplFileInfo(__DIR__ . '/../vendor/composer/InstalledVersions.php'));
 
         foreach ($testFor as $test) {
             if (file_exists(__DIR__ . '/../vendor/composer/' . $test)) {
