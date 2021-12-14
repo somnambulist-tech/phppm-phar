@@ -39,6 +39,10 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2021-12-14
+
+Updated to Symfony 5.4.*
+
 #### 2021-06-21
 
 Updated to Symfony 5.3.*
