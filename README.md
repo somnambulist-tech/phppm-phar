@@ -5,7 +5,6 @@
 [![License](https://img.shields.io/github/license/somnambulist-tech/phppm-phar?logo=github)](https://github.com/somnambulist-tech/api-bundle/blob/master/LICENSE)
 [![PPM Compatible](https://raw.githubusercontent.com/php-pm/ppm-badge/master/ppm-badge.png)](https://github.com/php-pm/php-pm)
 
-
 Adds a compiler derived from Composers Composer\Compiler class that creates a ppm.phar file for use
 in other projects, isolating the php-pm dependencies from your project making it more portable.
 
@@ -38,6 +37,12 @@ Copy the ppm.phar wherever you would like or symlink it: e.g.: `ln -s ./ppm.phar
 If you have specific version requirements, clone this package and set the versions you need.
 
 ### Major Changes
+
+#### 2022-01-10
+
+Updated to PHP-PM 2.3 / HttpKernel 2.3
+Updated to Symfony 6.0.*
+Require PHP 8.0+
 
 #### 2021-12-14
 
