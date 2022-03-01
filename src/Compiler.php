@@ -52,6 +52,7 @@ class Compiler
             ->in(__DIR__ . '/../src/')
             ->in(__DIR__ . '/../vendor/symfony/')
             ->in(__DIR__ . '/../vendor/evenement/')
+            ->in(__DIR__ . '/../vendor/fig/')
             ->in(__DIR__ . '/../vendor/guzzlehttp/')
             ->in(__DIR__ . '/../vendor/php-pm/')
             ->in(__DIR__ . '/../vendor/psr/')
