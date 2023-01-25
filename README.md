@@ -1,6 +1,6 @@
 # Phar compiler for php-pm
 
-[![GitHub Actions Build Status](https://img.shields.io/github/workflow/status/somnambulist-tech/phppm-phar/release?logo=github)](https://github.com/somnambulist-tech/phppm-phar/actions?query=workflow%3Arelease)
+[![GitHub Actions Build Status](https://img.shields.io/github/actions/workflow/status/somnambulist-tech/phppm-phar/release.yml?logo=github&branch=master)](https://github.com/somnambulist-tech/phppm-phar/actions?query=workflow%3Arelease)
 [![Issues](https://img.shields.io/github/issues/somnambulist-tech/phppm-phar?logo=github)](https://github.com/somnambulist-tech/phppm-phar/issues)
 [![License](https://img.shields.io/github/license/somnambulist-tech/phppm-phar?logo=github)](https://github.com/somnambulist-tech/api-bundle/blob/master/LICENSE)
 [![PPM Compatible](https://raw.githubusercontent.com/php-pm/ppm-badge/master/ppm-badge.png)](https://github.com/php-pm/php-pm)
