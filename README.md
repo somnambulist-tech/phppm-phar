@@ -38,6 +38,11 @@ If you have specific version requirements, clone this package and set the versio
 
 ### Major Changes
 
+#### 2023-01-25
+
+Updated to Symfony 6.2.*
+Require PHP 8.1+
+
 #### 2022-01-10
 
 Updated to PHP-PM 2.3 / HttpKernel 2.3
