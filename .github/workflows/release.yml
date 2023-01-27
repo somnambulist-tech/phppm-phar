@@ -5,6 +5,19 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+    inputs:
+      update_release:
+        description: 'Build docker images from release'
+        required: true
+        default: 'update_release'
+      update_release_github_account:
+        description: 'Account Owner'
+        required: true
+        default: 'dave-redfern'
+      update_release_repo_github:
+        description: 'repo-name'
+        required: true
+        default: 'docker-php-ppm'
 
 jobs:
   build:
@@ -52,3 +65,9 @@ jobs:
           asset_path: ./ppm_checksums.txt
           asset_name: ppm_checksums.txt
           asset_content_type: application/octet-stream
+      - name: Trigger docker build
+        run: |
+          curl -X POST https://api.github.com/repos/dave-redfern/docker-php-ppm/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACTIONS_KEY }} \
+          --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
