@@ -5,19 +5,6 @@ on:
     tags:
       - '*'
   workflow_dispatch:
-    inputs:
-      update_release:
-        description: 'Build docker images from release'
-        required: true
-        default: 'update_release'
-      update_release_github_account:
-        description: 'Account Owner'
-        required: true
-        default: 'dave-redfern'
-      update_release_repo_github:
-        description: 'repo-name'
-        required: true
-        default: 'docker-php-ppm'
 
 jobs:
   build:
