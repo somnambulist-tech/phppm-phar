@@ -57,4 +57,10 @@ jobs:
           curl -X POST https://api.github.com/repos/dave-redfern/docker-php-ppm/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACTIONS_KEY }} \
-          --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+          --data '{"event_type": "update-releases", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - name: Trigger homebrew update
+        run: |
+          curl -X POST https://api.github.com/repos/somnambulist-tech/homebrew-somnambulist/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACTIONS_KEY }} \
+          --data '{"event_type": "update-packages", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
