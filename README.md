@@ -16,7 +16,7 @@ This library includes:
  
 Note: all other adapters have been removed as they are not updated very often.
 
-In addition the following additional bootstrappers are included:
+In addition, the following additional bootstrappers are included:
 
  * `SomnambulistSymfony`
  
@@ -37,6 +37,11 @@ Copy the ppm.phar wherever you would like or symlink it: e.g.: `ln -s ./ppm.phar
 If you have specific version requirements, clone this package and set the versions you need.
 
 ### Major Changes
+
+#### 2023-12-07
+
+Updated to Symfony 6.4.*
+Require PHP 8.2+
 
 #### 2023-01-25
 

@@ -18,7 +18,6 @@ use function shell_exec;
  */
 class Compiler
 {
-
     /**
      * Compiles PPM into a single phar file
      *
@@ -44,6 +43,7 @@ class Compiler
             ->ignoreVCS(true)
             ->name('*.php')
             ->name('LICENSE')
+            ->name('completion.*')
             ->exclude('Tests')
             ->exclude('tests')
             ->exclude('docs')
