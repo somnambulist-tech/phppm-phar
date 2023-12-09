@@ -24,34 +24,15 @@ jobs:
           bin/compile
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1.1.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
+          files: |
+            ppm.phar
+            ppm_checksums.txt
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Phar Asset
-        id: upload-release-phar-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ppm.phar
-          asset_name: ppm.phar
-          asset_content_type: application/octet-stream
-      - name: Upload Release Checksums Asset
-        id: upload-release-checksums-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ppm_checksums.txt
-          asset_name: ppm_checksums.txt
-          asset_content_type: application/octet-stream
       - name: Trigger docker build
         run: |
           curl -X POST https://api.github.com/repos/dave-redfern/docker-php-ppm/dispatches \
